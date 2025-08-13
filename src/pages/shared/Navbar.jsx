@@ -1,12 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext/AuthContext';
+import { signOut } from "firebase/auth";
+import logo from '../../assets/job-logo.png';
 
 const Navbar = () => {
 
+    const { user, signOutUser } = useContext(AuthContext);
+
+    const handleSignOut = () => {
+        signOutUser()
+        .then(()=>{
+            console.log('User signed out successfully');
+        })
+        .catch(elser => {
+            console.error('Fail to sign out', elser);
+        })
+    }
+
     const links = <>
-        <li><a>Item 1</a></li>
-        
-        <li><a>Item 3</a></li>
+        <li to='/'><NavLink>Home</NavLink></li>
+        <li to='/'><NavLink>Home</NavLink></li>
+        <li to='/'><NavLink>Home</NavLink></li>
+
     </>
 
     return (
@@ -22,7 +38,10 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost text-xl">
+                <img src={logo} alt="" />
+                <h3 className='text-3xl'>Job Portal</h3>
+                </a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -30,8 +49,15 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to="/register">Register</Link>
-                <a className="btn">Sign In</a>
+                {
+                    user ? <>
+                        <button onClick={handleSignOut} className="btn">Sign Out</button>
+                    </> : <>
+                        <Link to="/register">Register</Link>
+                        <Link to="/signin">
+                            <button className="btn">Sign In</button></Link>
+                    </>
+                }
             </div>
         </div>
     );
