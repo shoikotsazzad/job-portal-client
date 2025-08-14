@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from '../../context/AuthContext/AuthContext';
+import SocialLogin from '../shared/SocialLogin';
 
 const SignIn = () => {
 
@@ -24,7 +25,7 @@ const SignIn = () => {
 
 
     return (
-        <div className="hero bg-base-200 min-h-screen">
+        <div className="hero bg-base-200 min-h-screen text-center">
             <div className="hero-content">
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                     <form onSubmit={handleSignIn} className="card-body">
@@ -64,6 +65,9 @@ const SignIn = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
+                    <div>
+                        <SocialLogin></SocialLogin>
+                    </div>
                 </div>
             </div>
         </div>
