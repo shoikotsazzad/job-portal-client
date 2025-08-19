@@ -5,7 +5,7 @@ import logo from "../../assets/job-logo.png"
 const Footer = () => {
   return (
     <>
-      <style jsx>{`
+      <style >{`
                 @keyframes fadeInUp {
                     from {
                         opacity: 0;

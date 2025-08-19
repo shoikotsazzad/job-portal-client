@@ -4,15 +4,17 @@ import FeaturedJobs from './FeaturedJobs';
 import HowItWorks from './HowItWorks';
 import JobCategories from './JobCategories';
 import Testimonials from './Testimonials';
+import HotJobs from './HotJobs';
 
 const Home = () => {
     return (
-        <div>
-           <Banner />
-           <FeaturedJobs></FeaturedJobs>
+        <div >
+           <Banner></Banner>
+           <HotJobs></HotJobs>
+           {/*<FeaturedJobs></FeaturedJobs>
            <JobCategories></JobCategories>
            <HowItWorks></HowItWorks>
-           <Testimonials></Testimonials>
+           <Testimonials></Testimonials> */}
         </div>
     );
 };
