@@ -1,10 +1,14 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const JobApply = () => {
 
-    const {id} = useParams();
-    console.log("Job ID:", id);
+    const { id } = useParams();
+    const {user} = useAuth();
+    const navigate = useNavigate();
+    //console.log(id, user);
 
     const submitJobApplication = (event) => {
         event.preventDefault();
@@ -13,53 +17,101 @@ const JobApply = () => {
         const linkedIn = form.linkedIn.value;
         const github = form.github.value;
         const resume = form.resume.value;
-        console.log('LinkedIn:', linkedIn);
 
 
-        console.log(linkedIn, github,resume);
+        //console.log(linkedIn, github, resume);
+
+        const jobApplication ={
+            job_id: id,
+            applicant_email: user.email,
+            linkedIn,
+            github,
+            resume
+        }
+
+        fetch('http://localhost:3000/job-applications',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jobApplication)
+        } )
+        .then(res => res.json())
+        .then(data =>{
+            if(data.insertedId){
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Apply Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                  navigate('/myApplications');
+
+            }
+        })
 
 
 
     }
 
     return (
-        <div className="hero bg-base-200 min-h-screen">
-            <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left">
-                    <h1 className="text-5xl font-bold">Job Application Form</h1>
-                    <p className="py-6">
-                        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                        quasi. In deleniti eaque aut repudiandae et a id nisi.
-                    </p>
-                </div>
-                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                    <form onSubmit={submitJobApplication} className="card-body">
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">LinkedIn URL</span>
-                            </label>
-                            <input type="url" name="linkedIn" placeholder="LinkedIn URL" className="input input-bordered" required />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Github URL</span>
-                            </label>
-                            <input type="url" name="github" placeholder="Github URL" className="input input-bordered" required />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Resume URL</span>
-                            </label>
-                            <input type="url" name="resume" placeholder="Resume URL" className="input input-bordered" required />
-                        </div>
-                        <div className="form-control mt-6">
-                            <button className="btn btn-primary">Apply</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div className="flex items-center justify-center min-h-screen bg-gray-900">
+          <div className="card bg-gray-800 w-full max-w-md shadow-2xl p-6 rounded-2xl">
+            <h1 className="text-3xl font-bold text-center mb-6 text-white">
+              Job Application Form
+            </h1>
+            <form onSubmit={submitJobApplication} className="space-y-4">
+              
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-gray-300 font-medium">LinkedIn URL</span>
+                </label>
+                <input
+                  type="url"
+                  name="linkedIn"
+                  placeholder="Enter your LinkedIn URL"
+                  className="input input-bordered w-full bg-gray-700 text-white placeholder-gray-400"
+                  required
+                />
+              </div>
+      
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-gray-300 font-medium">GitHub URL</span>
+                </label>
+                <input
+                  type="url"
+                  name="github"
+                  placeholder="Enter your GitHub URL"
+                  className="input input-bordered w-full bg-gray-700 text-white placeholder-gray-400"
+                  required
+                />
+              </div>
+      
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-gray-300 font-medium">Resume URL</span>
+                </label>
+                <input
+                  type="url"
+                  name="resume"
+                  placeholder="Enter your Resume URL"
+                  className="input input-bordered w-full bg-gray-700 text-white placeholder-gray-400"
+                  required
+                />
+              </div>
+      
+              <div className="form-control mt-6">
+                <button className="btn btn-primary w-full hover:scale-105 transition-transform">
+                  Apply
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-    );
+      );
+      
 };
 
 export default JobApply;

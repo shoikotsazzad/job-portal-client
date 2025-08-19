@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext/AuthContext';
-import { signOut } from "firebase/auth";
 import logo from '../../assets/job-logo.png';
 
 const Navbar = () => {
@@ -19,9 +18,9 @@ const Navbar = () => {
     }
 
     const links = <>
-        <li to='/'><NavLink>Home</NavLink></li>
-        <li to='/'><NavLink>Home</NavLink></li>
-        <li to='/'><NavLink>Home</NavLink></li>
+        <li><NavLink to='/'>Home</NavLink></li>
+        <li><NavLink to='/myApplications'>My Application</NavLink></li>
+        <li><NavLink to='/'>Home</NavLink></li>
 
     </>
 

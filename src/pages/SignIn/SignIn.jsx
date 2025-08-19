@@ -9,7 +9,7 @@ const SignIn = () => {
     const navigate = useNavigate();
 
     // Get the page user tried to access; fallback to '/jobdetails'
-    const from = location.state?.from?.pathname || '/jobdetails';
+    const from = location.state?.from?.pathname || '/';
 
     const handleSignIn = (event) => {
         event.preventDefault();
