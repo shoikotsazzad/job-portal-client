@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
+import axios from 'axios';
 
 const MyApplications = () => {
 
@@ -7,11 +8,17 @@ const MyApplications = () => {
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/job-applications?email=${user.email}`)
-            .then(res => res.json())
-            .then(data => setJobs(data))
-            .catch(error => console.error('Error fetching job applications:', error));
-    }, [user.email]);
+        // fetch(`http://localhost:3000/job-applications?email=${user.email}`)
+        //     .then(res => res.json())
+        //     .then(data => setJobs(data))
+        //     .catch(error => console.error('Error fetching job applications:', error));
+    
+        axios.get(`http://localhost:3000/job-applications?email=${user.email}`,
+            {withCredentials: true}
+        )
+        .then(res => res.data)
+
+        }, [user.email]);
 
     return (
         <div>
