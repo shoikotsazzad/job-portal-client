@@ -31,8 +31,8 @@ const SignIn = () => {
                     console.log(res.data)
                 })
 
-                // Redirect to the original page
-                //navigate(from, { replace: true });
+                //Redirect to the original page
+                navigate(from, { replace: true });
             })
             .catch(err => {
                 console.log(err);
