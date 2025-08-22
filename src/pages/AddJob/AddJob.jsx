@@ -17,12 +17,12 @@ const AddJob = () => {
 
         const { min, max, currency, ...newJob } = initialData;
 
-        newJob.salaryRange = { min, max, currency }
+        newJob.salaryRange = { min:parseInt(min), max:parseInt(max), currency }
         newJob.requirements = newJob.requirements.split('\n');
         newJob.responsibilities = newJob.responsibilities.split('\n');
         console.log(newJob);
 
-        fetch('http://localhost:3000/jobs', {
+        fetch('https://job-portal-server-nu-seven.vercel.app/jobs', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ const AddJob = () => {
                     <label className="label">
                         <span className="label-text">HR Email</span>
                     </label>
-                    <input type="email" defaultValue={user?.email} name="hr_email" placeholder="HR Email" className="input input-bordered" required />
+                    <input readOnly type="email" defaultValue={user?.email} name="hr_email" placeholder="HR Email" className="input input-bordered" required />
                 </div>
                 {/* Application Deadline */}
                 <div className="form-control">

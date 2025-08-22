@@ -8,12 +8,12 @@ const MyApplications = () => {
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
-        // fetch(`http://localhost:3000/job-applications?email=${user.email}`)
+        // fetch(`https://job-portal-server-nu-seven.vercel.app/job-applications?email=${user.email}`)
         //     .then(res => res.json())
         //     .then(data => setJobs(data))
         //     .catch(error => console.error('Error fetching job applications:', error));
     
-        axios.get(`http://localhost:3000/job-applications?email=${user.email}`,
+        axios.get(`https://job-portal-server-nu-seven.vercel.app/job-applications?email=${user.email}`,
             {withCredentials: true}
         )
         .then(res => setJobs(res.data))
